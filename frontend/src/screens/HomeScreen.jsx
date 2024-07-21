@@ -1,22 +1,22 @@
-import { useState, useEffect } from 'react';
-
 import { Row, Col } from 'react-bootstrap';
 import Book from '../components/Book';
-import axios from 'axios';
+import { useGetBooksQuery } from '../slices/bookSlice';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 const HomeScreen = () => {
-    const [books, setBooks] = useState([]);
-    useEffect(() => {
-      const fetchBooks = async () => {
-        const { data } = await axios.get('/api/books');
-        setBooks(data);
-      };
-
-      fetchBooks();
-    }, []);
-
-    return (
+  const { data: books, isLoading, error } = useGetBooksQuery();
+  console.log(books)
+  return (
       <>
+      {isLoading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>
+          {error?.data?.message || error.error}
+        </Message>
+      ) : (
+        <>
         <h1>Latest Books</h1>
         <Row>
           {books.map((book) => (
@@ -25,8 +25,10 @@ const HomeScreen = () => {
             </Col>
           ))}
         </Row>
-      </>
-    );
-  };
+        </>
+      )}
+      </>  
+  );
+};
   
-  export default HomeScreen;
+export default HomeScreen;
