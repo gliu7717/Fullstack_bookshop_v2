@@ -1,15 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Card, Button,Form } from 'react-bootstrap';
 import Rating from '../components/Rating';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../slices/cartSlice';
+import { useGetBookDetailsQuery } from '../slices/bookSlice';
 
 const BookScreen = () => {
     const { id: bookId } = useParams();
-    const [book, setBook] = useState({});
+
+    const {
+      data: book,
+      isLoading,
+      error,
+    } = useGetBookDetailsQuery(bookId);
+
     const [qty, setQty] = useState(1);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -19,21 +25,18 @@ const BookScreen = () => {
       navigate('/cart');
     };
 
-    useEffect(() => {
-    const fetchBook = async () => {
-      const { data } = await axios.get(`/api/books/${bookId}`);
-      setBook(data);
-    };
-
-    fetchBook();
-   }, [bookId]);
-
   return (
     <>
         <Link to='/' className='btn btn-light my-3'>
         Go Back
       </Link>
-      <Row>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div>{error?.data.message || error.error}</div>
+      ) : (
+        <>
+        <Row>
         <Col md={5}>
         <Image src={book.image} alt={book.name} fluid />
         </Col>
@@ -111,6 +114,8 @@ const BookScreen = () => {
         </Card>
         </Col>
       </Row>
+      </>
+      ) }
     </>
   )
 }
