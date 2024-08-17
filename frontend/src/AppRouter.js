@@ -12,6 +12,7 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ShippingScreen from './screens/ShippingScreen';
 import PrivateRoute from './components/PrivateRoute';
+import AdminRoute from './components/AdminRoute';
 import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
@@ -34,9 +35,12 @@ export const router = createBrowserRouter(
          <Route path='/placeorder' element={<PlaceOrderScreen />} />
          <Route path='/order/:id' element={<OrderScreen />} />
          <Route path='/profile' element={<ProfileScreen />} /> 
-         <Route path='/admin/orderlist' element={<OrderListScreen />} />        
         </Route>
-        
+        {/* Admin users */}
+        <Route path='' element={<AdminRoute />}>
+          <Route path='/admin/orderlist' element={<OrderListScreen />} />
+        </Route>
+
       </Route>
     )
 );
