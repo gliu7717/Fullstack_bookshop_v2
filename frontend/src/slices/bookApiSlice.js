@@ -49,8 +49,18 @@ export const bookSlice = apiSlice.injectEndpoints({
       providesTags: ['Book'],
     }),
 
+    createReview: builder.mutation({
+      query: (data) => ({
+        url: `${BOOKS_URL}/${data.bookId}/reviews`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['Book'],
+    }),
+    
   }),
 });
 
 export const { useGetBooksQuery, useGetBookDetailsQuery,useAddBookMutation,
-  useUpdateBookMutation,useUploadBookImageMutation,useDeleteBookMutation } = bookSlice;
+  useUpdateBookMutation,useUploadBookImageMutation,
+  useDeleteBookMutation, useCreateReviewMutation } = bookSlice;
