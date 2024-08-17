@@ -61,7 +61,7 @@ const BookListScreen = () => {
                   <td>{book.name}</td>
                   <td>${book.price}</td>
                   <td>{book.category}</td>
-                  <td>{book.brand}</td>
+                  <td>{book.publisher}</td>
                   <td>
                     <LinkContainer to={`/admin/book/${book._id}/edit`}>
                       <Button variant='light' className='btn-sm mx-2'>
