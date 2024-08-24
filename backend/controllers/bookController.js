@@ -5,9 +5,13 @@ import Book from '../models/bookModel.js';
 // @route   GET /api/books
 // @access  Public
 const getBooks = asyncHandler(async (req, res) =>{
-    const books = await Book.find({});
-    res.json(books)
-})
+    const pageSize = 2;
+    const page = Number(req.query.pageNumber) || 1;
+    const count = await Book.countDocuments();
+    const books = await Book.find()
+      .limit(pageSize)
+      .skip(pageSize * (page - 1));
+    res.json({ books, page, pages: Math.ceil(count / pageSize) });})
 
 
 // @desc    Fetch single book

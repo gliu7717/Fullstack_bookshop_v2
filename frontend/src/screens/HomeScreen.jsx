@@ -3,10 +3,14 @@ import Book from '../components/Book';
 import { useGetBooksQuery } from '../slices/bookApiSlice';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { useParams } from 'react-router-dom';
 
 const HomeScreen = () => {
-  const { data: books, isLoading, error } = useGetBooksQuery();
-  console.log(books)
+  const { pageNumber } = useParams();
+  const { data, isLoading, error } = useGetBooksQuery({
+    pageNumber,
+  });
+  console.log(data)
   return (
       <>
       {isLoading ? (
@@ -19,7 +23,7 @@ const HomeScreen = () => {
         <>
         <h1>Latest Books</h1>
         <Row>
-          {books.map((book) => (
+          {data.books.map((book) => (
             <Col key={book._id} sm={12} md={6} lg={4} xl={3}>
               <Book book={book} />
             </Col>
