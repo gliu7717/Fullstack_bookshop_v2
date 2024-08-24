@@ -1,10 +1,12 @@
 import { Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Book from '../components/Book';
 import { useGetBooksQuery } from '../slices/bookApiSlice';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { useParams } from 'react-router-dom';
 import Paginate from '../components/Paginate';
+import BookCarousel from '../components/BookCarousel';
 
 const HomeScreen = () => {
   const { pageNumber,keyword } = useParams();
@@ -15,6 +17,16 @@ const HomeScreen = () => {
   console.log(data)
   return (
       <>
+
+      {!keyword ? (
+        <BookCarousel />
+      ) : (
+        <Link to='/' className='btn btn-light'>
+          Go Back
+        </Link>
+      )}
+
+
       {isLoading ? (
         <Loader />
       ) : error ? (

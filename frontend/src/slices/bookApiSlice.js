@@ -59,9 +59,17 @@ export const bookSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['Book'],
     }),
     
+    getTopBooks: builder.query({
+      query: () => ({
+        url: `${BOOKS_URL}/top`,
+      }),
+      keepUnusedDataFor: 5,
+    }),
+
+
   }),
 });
 
 export const { useGetBooksQuery, useGetBookDetailsQuery,useAddBookMutation,
   useUpdateBookMutation,useUploadBookImageMutation,
-  useDeleteBookMutation, useCreateReviewMutation } = bookSlice;
+  useDeleteBookMutation, useCreateReviewMutation, useGetTopBooksQuery } = bookSlice;
