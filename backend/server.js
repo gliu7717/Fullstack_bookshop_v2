@@ -21,9 +21,6 @@ app.get('/api/config/paypal', (req, res) =>
     res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
 );
 
-app.get('/', (req, res) => {
-    res.send('API is running...');
-});  
 
 app.use('/api/books', bookRoutes);
 app.use('/api/users', userRoutes);
