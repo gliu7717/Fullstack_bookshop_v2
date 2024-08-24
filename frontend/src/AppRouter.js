@@ -45,6 +45,7 @@ export const router = createBrowserRouter(
         <Route path='' element={<AdminRoute />}>
           <Route path='/admin/orderlist' element={<OrderListScreen />} />
           <Route path='/admin/booklist' element={<BookListScreen />} />
+          <Route path='/admin/booklist/:pageNumber' element={<BookListScreen />} />
           <Route path='/admin/book/:id/edit' element={<BookEditScreen />} />
           <Route path='/admin/userlist' element={<UserListScreen />} />
           <Route path='/admin/user/:id/edit' element={<UserEditScreen />} />
